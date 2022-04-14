@@ -8,7 +8,7 @@ namespace Triliza
 {
     class Screen
     {
-        public void PrintLine(int? sel)
+        void PrintLine(int? sel)
         {
             string[] line = { "---", "---", "---" };
             if (sel != null)
@@ -18,7 +18,7 @@ namespace Triliza
             }
             Console.WriteLine(" " + line[0]+ " " + line[1]+ " " + line[2]);
         }
-        public void PrintRow(char[] Marks,int? sel)
+        void PrintRow(char[] Marks,int? sel)
         {
             string[] draw={"e","e","e"};
             for (int i = 0; i < 3; i++)
@@ -36,6 +36,36 @@ namespace Triliza
             Console.WriteLine("|" + draw[0] + "|" + draw[1] + "|" + draw[2]+"|");
         }
 
+        public void Update(char[,]Mark,int SelRow,int SelCol)
+        {
+            Console.Clear();
+            for (int i = 0; i < 3; i++)
+            {
+                if (SelRow==i)
+                {
+                    PrintLine(SelCol);
+                    PrintRow(Mark.GetRow(i), SelCol);
+                }
+                else if (SelRow==i-1)
+                {
+                    PrintLine(SelCol);
+                    PrintRow(Mark.GetRow(i), null);
+                }
+                else
+                {
+                    PrintLine(null);
+                    PrintRow(Mark.GetRow(i), null);
+                }
+            }
+            if (SelRow==2)
+            {
+                PrintLine(SelCol);
+            }
+            else
+            {
+                PrintLine(null);
+            }
+        }
 
     }
 }

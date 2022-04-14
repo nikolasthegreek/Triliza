@@ -10,7 +10,7 @@ namespace Triliza
     {
         static void Main(string[] args)
         {
-            
+            GameMaster GM = new GameMaster();
         }
     }
 }
