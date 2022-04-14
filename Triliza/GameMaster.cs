@@ -16,6 +16,7 @@ namespace Triliza
             };
         int SelRow=1;
         int SelCol=1;
+        int counter = 0;
         bool TurnX = true;
 
         char Input;
@@ -35,8 +36,12 @@ namespace Triliza
             if (Input=='w'){SelUp();}
             if (Input=='s'){SelDown();}
             if (Input==' '){SelPlace();}
-            
+            CheckState();
             Update();
+        }
+        void CheckState()
+        {
+            if (counter==9){Reset();}
         }
         char GetInput()
         {
@@ -86,6 +91,33 @@ namespace Triliza
                 Mrk[SelRow, SelCol] = 'o';
             }
             TurnX = !(TurnX);
+            counter++;
+        }
+        void Reset()
+        {
+            Mrk=new [,]
+            {
+                { ' ',' ',' '},
+                { ' ',' ',' '},
+                { ' ',' ',' '}
+            };
+            counter = 0;
+            TurnX = true;
+        }
+        bool? CheckPos(int offsetRow,int offsetCol)
+        {
+            char player='o';
+            if (TurnX)
+            {
+                player='x';
+            }
+            int RowPos = SelRow + offsetRow;
+            int ColPos = SelCol + offsetCol;
+            if (RowPos<0||RowPos>2||ColPos<0||ColPos>2){return null;}
+            else
+            {
+                return Mrk[RowPos, ColPos] == player;
+            }
         }
     }
 }
