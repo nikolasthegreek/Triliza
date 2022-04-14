@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Triliza
 {
-    class Program
+    class GameMaster
     {
-        static void Main(string[] args)
-        {
-            
-        }
     }
 }
