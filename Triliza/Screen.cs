@@ -36,7 +36,7 @@ namespace Triliza
             Console.WriteLine("|" + draw[0] + "|" + draw[1] + "|" + draw[2]+"|");
         }
 
-        public void Update(char[,]Mark,int SelRow,int SelCol)
+        public void Update(char[,]Mark,int? SelRow,int? SelCol)
         {
             Console.Clear();
             for (int i = 0; i < 3; i++)

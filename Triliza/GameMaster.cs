@@ -36,12 +36,47 @@ namespace Triliza
             if (Input=='w'){SelUp();}
             if (Input=='s'){SelDown();}
             if (Input==' '){SelPlace();}
-            CheckState();
-            Update();
+            if (CheckState()&&Input==' ')
+            {
+                Win();
+            }
+            else
+            {
+                Update();
+            }
         }
-        void CheckState()
+        void Win()
         {
-            if (counter==9){Reset();}
+            Scr.Update(Mrk, null, null); ;
+            if (TurnX)
+            {
+                Console.WriteLine("\n\nVicktory to O");
+            }
+            else
+            {
+                Console.WriteLine("\n\nVicktory to X");
+            }
+            Console.ReadLine();
+        }
+        bool CheckState()
+        {
+            if (CheckPos(1,0)&& CheckPos(2,0)){ return true; }
+            else if (CheckPos(1,0)&& CheckPos(-1,0)) { return true; }
+            else if (CheckPos(-1,0)&& CheckPos(-2,0)) { return true; }
+
+            else if (CheckPos(0,1)&& CheckPos(0,2)) { return true; }
+            else if (CheckPos(0,1)&& CheckPos(0,-1)) { return true; }
+            else if (CheckPos(0,-2)&& CheckPos(0,-1)) { return true; }
+
+            else if (CheckPos(-1,-1)&& CheckPos(1,1)) { return true; }
+            else if (CheckPos(-1,-1)&& CheckPos(-2,-2)) { return true; }
+            else if (CheckPos(1,1)&& CheckPos(2,2)) { return true; }
+
+            else if (CheckPos(1,-1)&& CheckPos(2,-2)) { return true; }
+            else if (CheckPos(-1,1)&& CheckPos(-2,2)) { return true; }
+            else if (CheckPos(-1,1)&& CheckPos(1,-1)) { return true; }
+            else if (counter==9){Reset();}
+            return false;
         }
         char GetInput()
         {
@@ -104,16 +139,16 @@ namespace Triliza
             counter = 0;
             TurnX = true;
         }
-        bool? CheckPos(int offsetRow,int offsetCol)
+        bool CheckPos(int offsetRow,int offsetCol)
         {
-            char player='o';
+            char player='x';
             if (TurnX)
             {
-                player='x';
+                player='o';
             }
             int RowPos = SelRow + offsetRow;
             int ColPos = SelCol + offsetCol;
-            if (RowPos<0||RowPos>2||ColPos<0||ColPos>2){return null;}
+            if (RowPos<0||RowPos>2||ColPos<0||ColPos>2){return false;}
             else
             {
                 return Mrk[RowPos, ColPos] == player;
